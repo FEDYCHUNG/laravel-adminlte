@@ -87,7 +87,13 @@ class MasterBarangController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            MasterBarang::where("Kode_Barang", Crypt::decryptString($id))->delete();
+
+            return response()->json(array("success" => true, "message" => "Data Berhasil Dihapus"), 200);
+        } catch (\Throwable $th) {
+            return response()->json(array("message" => "Server Error !!!"), 500);
+        }
     }
 
     public function getMasterBarang(Request $request)

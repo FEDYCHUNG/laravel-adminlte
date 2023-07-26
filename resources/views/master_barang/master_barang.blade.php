@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <form method="" action="">
-                    @csrf
+
                     <div class="@if (request()->session()->has('message')) d-block @else d-none @endif mb-2">
                         <div class="alert {{ request()->session()->get('success') == true? 'alert-success': 'alert-danger' }} d-flex align-items-center" role="alert">
                             <div><i
@@ -91,6 +91,55 @@
                     },
                 ],
             });
+
+            tmaster_barang.on("click", ".btn-delete-datatable", function () {
+                let data = tmaster_barang.row($(this).parents("tr")).data();
+
+                Swal.fire({
+                    title: "Hapus Data ?",
+                    html: `Anda Yakin Hapus <b> ${data.Nama_Barang} </b>. <br/> Data yang sudah dihapus tidak bisa dikembalikan!`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya",
+                    cancelButtonText: `Tidak`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        hapus(data);
+                    }
+                });
+            });
         });
+
+        function hapus(data) {
+
+            // console.log( '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt));return;
+
+            $.ajax({
+                headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+                url: '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt),
+                type: "delete",
+                dataType: "json",
+                beforeSend: function () {
+                    disableButtonClassName("button.action-button");
+                },
+                success: function (response) {
+                    toastr.success(response.message, "Success");
+                    tmaster_barang.ajax.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    response = jqXHR.responseJSON;
+
+                    toastr.error(response.message, "Info", {
+                        timeOut: 10000,
+                        extendedTimeOut: 10000,
+                    });
+                },
+                complete: function (data) {
+                    enableButtonClassName("button.action-button");
+                },
+            });
+        }
     </script>
 @endsection

@@ -1,9 +1,13 @@
 <x-laravel-ui-adminlte::adminlte-layout>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link href="{{ asset('assets/vendor/fontawesome-free-6.1.1-web/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <link type="text/css" href="{{ asset('assets/vendor/datatables1.12/datatables.min.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ asset('assets/css/datatables-custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -53,7 +57,7 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper mt-3">
-                {{-- <div class="mb-5"></div> --}}
+                @csrf
                 @yield('content')
             </div>
 
@@ -73,6 +77,22 @@
         <script type="text/javascript" src="{{ asset('assets/vendor/datatables1.12/datatables.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/vendor/cleave.js/dist/cleave.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/js/cleave.js-custom.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/toastr/toastr.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+
+        <script>
+            function disableButtonClassName(classname) {
+                document.querySelectorAll(classname).forEach((elem) => {
+                    elem.disabled = true;
+                });
+            }
+
+            function enableButtonClassName(classname) {
+                document.querySelectorAll(classname).forEach((elem) => {
+                    elem.disabled = false;
+                });
+            }
+        </script>
     </body>
 
 </x-laravel-ui-adminlte::adminlte-layout>
