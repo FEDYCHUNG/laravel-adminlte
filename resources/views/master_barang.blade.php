@@ -45,6 +45,8 @@
         </div>
     </div>
 
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+
     <script>
         let tmaster_barang;
 
@@ -84,14 +86,6 @@
                     },
                 ],
             });
-
-            // <th class="kode_barang">Kode Barang</th>
-            //                     <th class="nm_barang">Nama Barang</th>
-            //                     <th class="harga_jual">Harga Jual</th>
-            //                     <th class="harga_beli">Harga Beli</th>
-            //                     <th class="satuan">Satuan</th>
-            //                     <th class="kategori">Kategori</th>
-            //                     <th class="action">Action</th>
 
         });
     </script>

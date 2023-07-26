@@ -67,5 +67,10 @@
                 reserved.
             </footer>
         </div>
+
+
+
+        <script type="text/javascript" src="{{ asset('assets/vendor/datatables1.12/datatables.min.js') }}"></script>
     </body>
+
 </x-laravel-ui-adminlte::adminlte-layout>
