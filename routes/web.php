@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MasterBarangController;
+use App\Http\Controllers\PenjualanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    //================================== Master Barang
     Route::get('/master_barang/get_master_barang', [MasterBarangController::class, 'getMasterBarang'])->name('master_barang.get_master_barang');
     Route::resource('/master_barang', MasterBarangController::class);
+
+    //================================== Penjualan
+    Route::resource('/penjualan', PenjualanController::class);
 });

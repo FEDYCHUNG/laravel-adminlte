@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header h-25 bg-primary text-white">
-                List Barang
+                List Penjualan
             </div>
             <div class="card-body">
                 <form method="" action="">
@@ -19,19 +19,19 @@
 
                     <div class="row mb-3">
                         <div class="col-3">
-                            <a href="{{ route('master_barang.create') }}" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-plus mr-2"></i>Tambah</a>
+                            <a href="{{ route('penjualan.create') }}" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-plus mr-2"></i>Tambah</a>
 
                         </div>
                     </div>
 
                     <hr class="bg-secondary border-top border-secondary border-2">
-                    <table id="tmaster_barang" class="table-striped table" style="width:100%">
+                    <table id="tpenjualan" class="table-striped table" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="no_transaksi">No Transaksi</th>
-                                <th class="tgl_transaksi">Tgl Transaksi</th>
-                                <th class="nm_konsumen">Nama Konsumen</th>
-                                <th class="kd_barang">Harga Beli</th>
+                                <th class="kode_barang">Kode Barang</th>
+                                <th class="nm_barang">Nama Barang</th>
+                                <th class="harga_jual text-right">Harga Jual</th>
+                                <th class="harga_beli text-right">Harga Beli</th>
                                 <th class="satuan">Satuan</th>
                                 <th class="kategori">Kategori</th>
                                 <th class="action">Action</th>
@@ -44,10 +44,10 @@
     </div>
 
     <script type="module">
-        let tmaster_barang;
+        let tpenjualan;
 
         $(document).ready(function() {
-            tmaster_barang = $("#tmaster_barang").DataTable({
+            tpenjualan = $("#tpenjualan").DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
@@ -63,7 +63,6 @@
                     {
                         data: "Harga_Jual",
                         name: "harga_jual",
-                        class:"dt-body-right",
                         render: function (data, type, row) {
                             return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
                         },
@@ -71,7 +70,6 @@
                     {
                         data: "Harga_Beli",
                         name: "harga_beli",
-                        class:"dt-body-right",
                         render: function (data, type, row) {
                             return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
                         },
@@ -79,7 +77,6 @@
                     {
                         data: "Satuan",
                         name: "satuan",
-                        class:"dt-body-center",
                     },
                     {
                         data: "Kategori",
@@ -92,8 +89,8 @@
                 ],
             });
 
-            tmaster_barang.on("click", ".btn-delete-datatable", function () {
-                let data = tmaster_barang.row($(this).parents("tr")).data();
+            tpenjualan.on("click", ".btn-delete-datatable", function () {
+                let data = tpenjualan.row($(this).parents("tr")).data();
 
                 Swal.fire({
                     title: "Hapus Data ?",

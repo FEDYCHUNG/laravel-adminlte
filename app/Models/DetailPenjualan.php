@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Penjualan extends Model
+class DetailPenjualan extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,7 @@ class Penjualan extends Model
      *
      * @var string
      */
-    protected $table = 'penjualan';
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'No_Transaksi';
+    protected $table = 'detail_penjualan';
 
     /**
      * Indicates if the model's ID is auto-incrementing.
@@ -37,19 +30,9 @@ class Penjualan extends Model
      */
     protected $fillable = [
         'No_Transaksi',
-        'Tgl_Transaksi',
-        'Nama_Konsumen',
-        'Total_Transaksi',
-        'Username_Created',
-        'Username_Updated',
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $hidden = [
-        'Username_Created',
-        'Username_Updated',
-        'created_at',
-        'updated_at'
+        'Kode_Barang',
+        'Jumlah',
+        'Harga_Satuan',
+        'Harga_Total',
     ];
 }
