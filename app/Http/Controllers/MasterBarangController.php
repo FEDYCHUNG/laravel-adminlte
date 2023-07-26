@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MasterBarang\MasterBarangStoreRequest;
 use App\Models\MasterBarang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class MasterBarangController extends Controller
 {
-    private $MasterBarang;
-
     public function __construct()
     {
-        $this->MasterBarang = new MasterBarang();
     }
 
     /**
@@ -35,9 +35,27 @@ class MasterBarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MasterBarangStoreRequest $request)
+
     {
-        //
+        try {
+            MasterBarang::create(
+                [
+                    'Kode_Barang' => $request->kode_barang,
+                    'Nama_Barang' => $request->nm_barang,
+                    'Harga_Jual' => floatval($request->harga_jual_number),
+                    'Harga_Beli' => floatval($request->harga_beli_number),
+                    'Satuan' => $request->satuan,
+                    'Kategori' => $request->kategori,
+                    'Username_Created' => Auth::user()->id,
+                    'Username_Updated' => Auth::user()->id,
+                ]
+            );
+            return redirect()->route('master_barang.index')->with('success', true)->with('message', $request->nama_barang . " Berhasil Disimpan");
+        } catch (\Throwable $th) {
+            Log::error($th);
+            return back()->withInput()->with('success', false)->with('success', false)->with('message', "Server Error !!!");
+        }
     }
 
     /**
@@ -78,7 +96,7 @@ class MasterBarangController extends Controller
         $length = $request->input('length');
         $search = $request->input("search.value");
 
-        $query = $this->MasterBarang::select('Kode_Barang as Kode_Barang_encrypt', 'Kode_Barang', 'Nama_Barang', 'Harga_Jual', 'Harga_Beli', 'Satuan', 'Kategori')
+        $query = MasterBarang::select('Kode_Barang as Kode_Barang_encrypt', 'Kode_Barang', 'Nama_Barang', 'Harga_Jual', 'Harga_Beli', 'Satuan', 'Kategori')
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->orWhere('Kode_Barang', 'like', '%' . $search . '%')->orWhere('Nama_Barang', 'like', '%' . $search . '%')
