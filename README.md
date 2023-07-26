@@ -16,8 +16,12 @@
     * `php artisan migrate:fresh`
     * `npm install && npm run dev`
 
+
+## Running
+- go to directory laravel-adminlte using cmd or git bash
+    * `npm run dev`
 - open another cmd or git bash
-`php artisan serve`
+    * `php artisan serve`
 
 - open url http://127.0.0.1:8000 or look in cmd after `php artisan serve`
 - register user
