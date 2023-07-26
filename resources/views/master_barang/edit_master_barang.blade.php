@@ -122,16 +122,17 @@
     </div>
 
 
-    <script type="module">
+@endsection
+
+@push('scripts')
+    <script>
         $(document).ready(function() {
             $("#frmedit").on('submit', function(e) {
                 e.preventDefault();
                 document.getElementById('harga_jual_number').value = $.valHooks["#harga_jual"].getRawValue();
                 document.getElementById('harga_beli_number').value = $.valHooks["#harga_beli"].getRawValue();
-
-
                 document.getElementById('frmedit').submit();
             });
         })
     </script>
-@endsection
+@endpush

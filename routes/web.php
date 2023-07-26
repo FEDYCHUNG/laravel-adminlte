@@ -30,5 +30,6 @@ Route::middleware(['auth'])->group(function () {
 
     //================================== Penjualan
     Route::get('/penjualan/get_penjualan', [PenjualanController::class, 'getPenjualan'])->name('penjualan.get_penjualan');
+    Route::get('/penjualan/get_saldo_gudang', [PenjualanController::class, 'getSaldoGudang'])->name('penjualan.get_saldo_gudang');
     Route::resource('/penjualan', PenjualanController::class);
 });

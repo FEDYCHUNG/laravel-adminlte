@@ -121,7 +121,10 @@
     </div>
 
 
-    <script type="module">
+@endsection
+
+@push('scripts')
+    <script>
         $(document).ready(function() {
             $("#frmadd").on('submit', function(e) {
                 e.preventDefault();
@@ -133,4 +136,4 @@
             });
         })
     </script>
-@endsection
+@endpush

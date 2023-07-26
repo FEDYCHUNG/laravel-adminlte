@@ -42,8 +42,10 @@
             </div>
         </div>
     </div>
+@endsection
 
-    <script type="module">
+@push('scripts')
+    <script>
         let tmaster_barang;
 
         $(document).ready(function() {
@@ -63,23 +65,27 @@
                     {
                         data: "Harga_Jual",
                         name: "harga_jual",
-                        class:"dt-body-right",
-                        render: function (data, type, row) {
-                            return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
+                        class: "dt-body-right",
+                        render: function(data, type, row) {
+                            return Intl.NumberFormat('id-ID', {
+                                minimumFractionDigits: 2
+                            }).format(data);
                         },
                     },
                     {
                         data: "Harga_Beli",
                         name: "harga_beli",
-                        class:"dt-body-right",
-                        render: function (data, type, row) {
-                            return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
+                        class: "dt-body-right",
+                        render: function(data, type, row) {
+                            return Intl.NumberFormat('id-ID', {
+                                minimumFractionDigits: 2
+                            }).format(data);
                         },
                     },
                     {
                         data: "Satuan",
                         name: "satuan",
-                        class:"dt-body-center",
+                        class: "dt-body-center",
                     },
                     {
                         data: "Kategori",
@@ -92,7 +98,7 @@
                 ],
             });
 
-            tmaster_barang.on("click", ".btn-delete-datatable", function () {
+            tmaster_barang.on("click", ".btn-delete-datatable", function() {
                 let data = tmaster_barang.row($(this).parents("tr")).data();
 
                 Swal.fire({
@@ -114,18 +120,20 @@
 
         function hapus(data) {
             $.ajax({
-                headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
+                },
                 url: '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt),
                 type: "delete",
                 dataType: "json",
-                beforeSend: function () {
+                beforeSend: function() {
                     disableButtonClassName("button.action-button");
                 },
-                success: function (response) {
+                success: function(response) {
                     toastr.success(response.message, "Success");
                     tmaster_barang.ajax.reload();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     response = jqXHR.responseJSON;
 
                     toastr.error(response.message, "Info", {
@@ -133,10 +141,10 @@
                         extendedTimeOut: 10000,
                     });
                 },
-                complete: function (data) {
+                complete: function(data) {
                     enableButtonClassName("button.action-button");
                 },
             });
         }
     </script>
-@endsection
+@endpush
