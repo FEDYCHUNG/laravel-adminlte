@@ -21,7 +21,7 @@ class MasterBarangController extends Controller
      */
     public function index()
     {
-        return view("master_barang");
+        return view("master_barang.master_barang");
     }
 
     /**
@@ -29,7 +29,7 @@ class MasterBarangController extends Controller
      */
     public function create()
     {
-        //
+        return view("master_barang.add_master_barang");
     }
 
     /**

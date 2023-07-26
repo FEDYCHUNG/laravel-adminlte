@@ -1,0 +1,9 @@
+/* Each result */
+.select2-results {
+    color: #000000;
+}
+
+/* Selected option disabled */
+.select2-results__option[aria-disabled="true"] {
+    color:#99A799;
+  }

@@ -45,9 +45,8 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
 
-    <script>
+    <script type="module">
         let tmaster_barang;
 
         $(document).ready(function() {

@@ -2,6 +2,9 @@
 
     <link href="{{ asset('assets/vendor/fontawesome-free-6.1.1-web/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
+    <link type="text/css" href="{{ asset('assets/vendor/datatables1.12/datatables.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ asset('assets/css/datatables-custom.min.css') }}" rel="stylesheet">
+
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Main Header -->
@@ -69,8 +72,10 @@
         </div>
 
 
-
+        <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/vendor/datatables1.12/datatables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/vendor/cleave.js/dist/cleave.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/cleave.js-custom.min.js') }}"></script>
     </body>
 
 </x-laravel-ui-adminlte::adminlte-layout>
