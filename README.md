@@ -12,8 +12,8 @@
 `git clone https://github.com/FEDYCHUNG/laravel-adminlte.git`
 
 - go to directory laravel-adminlte using cmd or git bash
-`composer install`
-`npm install && npm run dev`
+    * `composer install`
+    * `npm install && npm run dev`
 
 - open another cmd or git bash
 `php artisan serve`
