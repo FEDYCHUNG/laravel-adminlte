@@ -28,10 +28,10 @@
                     <table id="tmaster_barang" class="table-striped table" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="no_transaksi">No Transaksi</th>
-                                <th class="tgl_transaksi">Tgl Transaksi</th>
-                                <th class="nm_konsumen">Nama Konsumen</th>
-                                <th class="kd_barang">Harga Beli</th>
+                                <th class="kode_barang">Kode Barang</th>
+                                <th class="nm_barang">Nama Barang</th>
+                                <th class="harga_jual">Harga Jual</th>
+                                <th class="harga_beli">Harga Beli</th>
                                 <th class="satuan">Satuan</th>
                                 <th class="kategori">Kategori</th>
                                 <th class="action">Action</th>

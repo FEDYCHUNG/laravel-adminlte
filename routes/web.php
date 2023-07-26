@@ -29,5 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/master_barang', MasterBarangController::class);
 
     //================================== Penjualan
+    Route::get('/penjualan/get_penjualan', [PenjualanController::class, 'getPenjualan'])->name('penjualan.get_penjualan');
     Route::resource('/penjualan', PenjualanController::class);
 });

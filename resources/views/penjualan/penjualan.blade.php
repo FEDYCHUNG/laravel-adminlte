@@ -28,12 +28,10 @@
                     <table id="tpenjualan" class="table-striped table" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="kode_barang">Kode Barang</th>
-                                <th class="nm_barang">Nama Barang</th>
-                                <th class="harga_jual text-right">Harga Jual</th>
-                                <th class="harga_beli text-right">Harga Beli</th>
-                                <th class="satuan">Satuan</th>
-                                <th class="kategori">Kategori</th>
+                                <th class="no_transaksi">No Transaksi</th>
+                                <th class="tgl_transaksi">Tgl Transaksi</th>
+                                <th class="nm_konsumen">Nama Konsumen</th>
+                                <th class="total_transaksi">Total Transaksi</th>
                                 <th class="action">Action</th>
                             </tr>
                         </thead>
@@ -51,36 +49,26 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '{{ route('master_barang.get_master_barang') }}',
+                ajax: '{{ route('penjualan.get_penjualan') }}',
                 columns: [{
-                        data: "Kode_Barang",
-                        name: "kode_barang",
+                        data: "No_Transaksi",
+                        name: "no_transaksi",
                     },
                     {
-                        data: "Nama_Barang",
-                        name: "nm_barang",
+                        data: "Tgl_Transaksi",
+                        name: "tgl_transaksi",
                     },
                     {
-                        data: "Harga_Jual",
-                        name: "harga_jual",
+                        data: "Nama_Konsumen",
+                        name: "nm_konsumen",
+                    },
+                    {
+                        data: "Total_Transaksi",
+                        name: "total_transaksi",
+                        class:"dt-body-right",
                         render: function (data, type, row) {
                             return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
                         },
-                    },
-                    {
-                        data: "Harga_Beli",
-                        name: "harga_beli",
-                        render: function (data, type, row) {
-                            return Intl.NumberFormat('id-ID', {minimumFractionDigits: 2}).format(data);
-                        },
-                    },
-                    {
-                        data: "Satuan",
-                        name: "satuan",
-                    },
-                    {
-                        data: "Kategori",
-                        name: "kategori",
                     },
                     {
                         data: "action",
