@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MasterBarang\MasterBarangStoreRequest;
+use App\Http\Requests\MasterBarang\MasterBarangUpdateRequest;
 use App\Models\MasterBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,7 +86,7 @@ class MasterBarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(MasterBarangUpdateRequest $request, string $id)
     {
         try {
             MasterBarang::where("Kode_Barang", Crypt::decryptString($id))

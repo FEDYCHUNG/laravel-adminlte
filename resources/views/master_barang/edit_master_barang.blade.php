@@ -124,7 +124,7 @@
 
     <script type="module">
         $(document).ready(function() {
-            $("#frmadd").on('submit', function(e) {
+            $("#frmedit").on('submit', function(e) {
                 e.preventDefault();
                 document.getElementById('harga_jual_number').value = $.valHooks["#harga_jual"].getRawValue();
                 document.getElementById('harga_beli_number').value = $.valHooks["#harga_beli"].getRawValue();
