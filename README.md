@@ -12,10 +12,19 @@
 `git clone https://github.com/FEDYCHUNG/laravel-adminlte.git`
 
 - go to directory laravel-adminlte using cmd or git bash
+    * change .env.example to .env
+        - change the database connection to your local database connection
+        `
+            DB_CONNECTION=mysql
+            DB_HOST=127.0.0.1
+            DB_PORT=3306
+            DB_DATABASE=laravel
+            DB_USERNAME=root
+            DB_PASSWORD=
+        `
     * `composer install`
     * `php artisan migrate:fresh`
     * `npm install && npm run dev`
-
 
 ## Running
 - go to directory laravel-adminlte using cmd or git bash
