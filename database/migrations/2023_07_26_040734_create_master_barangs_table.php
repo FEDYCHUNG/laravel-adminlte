@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('master_barang', function (Blueprint $table) {
-            $table->string('Kode_Barang',100)->primary();
-            $table->string('Nama_Barang',255);
+            $table->string('Kode_Barang', 100)->primary();
+            $table->string('Nama_Barang', 255);
             $table->decimal('Harga_Jual', $precision = 22, $scale = 2);
             $table->decimal('Harga_Beli', $precision = 22, $scale = 2);
-            $table->string('Satuan',50);
-            $table->string('Kategori',100);
+            $table->string('Satuan', 50);
+            $table->string('Kategori', 100);
+            $table->string('Username_Created', 50);
+            $table->string('Username_Updated', 50);
             $table->timestamps();
         });
     }

@@ -8,4 +8,51 @@ use Illuminate\Database\Eloquent\Model;
 class Penjualan extends Model
 {
     use HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'penjualan';
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'No_Transaksi';
+
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'No_Transaksi',
+        'Tgl_Transaksi',
+        'Nama_Konsumen',
+        'Kode_Barang',
+        'Jumlah',
+        'Harga_Satuan',
+        'Harga_Total',
+        'Username_Created',
+        'Username_Updated',
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $hidden = [
+        'Username_Created',
+        'Username_Updated',
+        'created_at',
+        'updated_at'
+    ];
 }
