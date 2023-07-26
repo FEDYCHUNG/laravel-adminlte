@@ -113,9 +113,6 @@
         });
 
         function hapus(data) {
-
-            // console.log( '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt));return;
-
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
                 url: '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt),

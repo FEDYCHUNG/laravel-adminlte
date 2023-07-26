@@ -71,7 +71,15 @@ class MasterBarangController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $data["id"] = $id;
+            $data["master_barang"] = MasterBarang::find(Crypt::decryptString($id));
+
+            return view('master_barang.edit_master_barang', $data);
+        } catch (\Throwable $th) {
+            Log::error($th);
+            return redirect()->route('master_barang.index');
+        }
     }
 
     /**
@@ -79,7 +87,23 @@ class MasterBarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            MasterBarang::where("Kode_Barang", Crypt::decryptString($id))
+                ->update([
+                    'Kode_Barang' => $request->kode_barang,
+                    'Nama_Barang' => $request->nm_barang,
+                    'Harga_Jual' => floatval($request->harga_jual_number),
+                    'Harga_Beli' => floatval($request->harga_beli_number),
+                    'Satuan' => $request->satuan,
+                    'Kategori' => $request->kategori,
+                    'Username_Updated' => Auth::user()->id,
+                ]);
+
+            return redirect()->route('master_barang.index')->with('success', true)->with('message', $request->nm_barang . "  Berhasil Diupdate");
+        } catch (\Illuminate\Database\QueryException $th) {
+            Log::error($th);
+            return back()->withInput()->with('success', false)->with('message', "Server Error !!!");
+        }
     }
 
     /**
@@ -120,7 +144,7 @@ class MasterBarangController extends Controller
         ])
             ->editColumn('Kode_Barang_encrypt', '{{Crypt::encryptString($Kode_Barang_encrypt)}}')
             ->addColumn('action', function ($item) {
-                return '<a href="' . route('master_barang.edit', ['master_barang' => Crypt::encryptString($item->master_barang)]) . '" class="btn btn-outline-success btn-sm mr-1 fa-solid fa-pen-to-square btn-edit-datatable" title="Edit"></a>
+                return '<a href="' . route('master_barang.edit', ['master_barang' => Crypt::encryptString($item->Kode_Barang)]) . '" class="btn btn-outline-success btn-sm mr-1 fa-solid fa-pen-to-square btn-edit-datatable" title="Edit"></a>
                 <button type="button" class="btn btn-outline-danger btn-sm btn-delete-datatable action-button" title="Hapus"><i class="fa-solid fa-trash-can"></i></button>';
             })
             ->order(function ($query) {
