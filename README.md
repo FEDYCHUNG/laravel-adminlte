@@ -11,20 +11,19 @@
 - write this:
 `git clone https://github.com/FEDYCHUNG/laravel-adminlte.git`
 
-- go to directory laravel-adminlte using cmd or git bash
-    * change .env.example to .env
+- go to directory laravel-adminlte 
+    * change file .env.example to .env
         - change the database connection to your local database connection
-        `
-            DB_CONNECTION=mysql
-            DB_HOST=127.0.0.1
-            DB_PORT=3306
-            DB_DATABASE=laravel
-            DB_USERNAME=root
-            DB_PASSWORD=
-        `
-    * `composer install`
-    * `php artisan migrate:fresh`
-    * `npm install && npm run dev`
+            `DB_CONNECTION=mysql`
+            `DB_HOST=127.0.0.1`
+            `DB_PORT=3306`
+            `DB_DATABASE=laravel`
+            `DB_USERNAME=root`
+            `DB_PASSWORD=`
+    * using cmd or git bash
+        - `composer install`
+        - `php artisan migrate:fresh`
+        - `npm install && npm run dev`
 
 ## Running
 - go to directory laravel-adminlte using cmd or git bash
@@ -33,7 +32,7 @@
     * `php artisan serve`
 
 - open url http://127.0.0.1:8000 or look in cmd after `php artisan serve`
-- register user
+- register user (right above button)
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
