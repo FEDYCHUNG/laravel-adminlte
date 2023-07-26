@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header h-25 bg-primary text-white">
-                List Bidang SKPD
+                List Barang
             </div>
             <div class="card-body">
                 <form method="" action="">
