@@ -61,4 +61,8 @@ class MasterBarangController extends Controller
     {
         //
     }
+
+    public function getMasterBarang()
+    {
+    }
 }

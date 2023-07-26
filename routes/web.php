@@ -23,5 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/master_barang/get_master_barang', [MasterBarangController::class, 'getMasterBarang'])->name('master_barang.get_master_barang');
     Route::resource('/master_barang', MasterBarangController::class);
 });
