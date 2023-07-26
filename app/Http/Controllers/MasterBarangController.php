@@ -11,7 +11,7 @@ class MasterBarangController extends Controller
      */
     public function index()
     {
-        //
+        return view("master_barang");
     }
 
     /**

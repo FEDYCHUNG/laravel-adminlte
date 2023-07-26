@@ -12,7 +12,7 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto ">
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
@@ -48,8 +48,11 @@
             <!-- Left side column. contains the logo and sidebar -->
             @include('layouts.sidebar')
 
+
+
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper mt-3">
+                {{-- <div class="mb-5"></div> --}}
                 @yield('content')
             </div>
 

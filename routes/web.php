@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MasterBarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,7 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/master_barang', MasterBarangController::class);
+});
