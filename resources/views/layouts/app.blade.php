@@ -99,6 +99,15 @@
                     elem.disabled = false;
                 });
             }
+
+            /**
+             * Remove the formatting to get integer data for summation
+             * @param {any} i
+             * @returns
+             */
+            const intVal = (i) => {
+                return typeof i === "string" ? i.replace(/[\$,]/g, "") * 1 : typeof i === "number" ? i : 0;
+            };
         </script>
 
         @stack('scripts')
