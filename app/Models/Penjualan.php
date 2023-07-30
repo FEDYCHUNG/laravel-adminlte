@@ -28,7 +28,7 @@ class Penjualan extends Model
      *
      * @var bool
      */
-    public $incrementing = false;
+    public $incrementing = 'No_Transaksi';
 
     /**
      * The attributes that are mass assignable.

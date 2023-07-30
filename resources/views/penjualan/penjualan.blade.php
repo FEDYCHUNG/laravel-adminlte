@@ -28,11 +28,11 @@
                     <table id="tpenjualan" class="table-striped table" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="no_transaksi">No Transaksi</th>
-                                <th class="tgl_transaksi">Tgl Transaksi</th>
-                                <th class="nm_konsumen">Nama Konsumen</th>
-                                <th class="total_transaksi">Total Transaksi</th>
-                                <th class="action">Action</th>
+                                <th class="no_transaksi text-center">No Transaksi</th>
+                                <th class="tgl_transaksi text-center">Tgl Transaksi</th>
+                                <th class="nm_konsumen text-center">Nama Konsumen</th>
+                                <th class="total_transaksi text-center">Total Transaksi</th>
+                                <th class="action text-center">Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -73,6 +73,7 @@
                     {
                         data: "action",
                         name: "action",
+                        class:"dt-body-center",
                     },
                 ],
             });
@@ -82,7 +83,7 @@
 
                 Swal.fire({
                     title: "Hapus Data ?",
-                    html: `Anda Yakin Hapus <b> ${data.Nama_Barang} </b>. <br/> Data yang sudah dihapus tidak bisa dikembalikan!`,
+                    html: `Anda Yakin Hapus <b> ${data.No_Transaksi} </b>. <br/> Data yang sudah dihapus tidak bisa dikembalikan!`,
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
@@ -100,7 +101,7 @@
         function hapus(data) {
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
-                url: '{{ route('master_barang.destroy', ':kode_barang') }}'.replace(":kode_barang", data.Kode_Barang_encrypt),
+                url: '{{ route('penjualan.destroy', ':penjualan') }}'.replace(":penjualan", data.No_Transaksi_encrypt),
                 type: "delete",
                 dataType: "json",
                 beforeSend: function () {
@@ -108,7 +109,7 @@
                 },
                 success: function (response) {
                     toastr.success(response.message, "Success");
-                    tmaster_barang.ajax.reload();
+                    tpenjualan.ajax.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     response = jqXHR.responseJSON;

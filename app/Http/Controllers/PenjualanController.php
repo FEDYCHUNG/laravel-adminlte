@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailPenjualan;
 use App\Models\MasterBarang;
 use App\Models\Penjualan;
 use Carbon\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class PenjualanController extends Controller
@@ -34,27 +36,13 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        Penjualan::create(
-            [
-                'Tgl_Transaksi' => ($request->tgl_transaksi == "" || is_null($request->tgl_transaksi)) ? '' : Carbon::createFromFormat('d-m-Y', $request->tgl_transaksi)->format('Y-m-d'),
-                'Nama_Konsumen' => $request->nm_konsumen,
-                'Total_Transaksi' => 0,
-                'Username_Created' => Auth::user()->id,
-                'Username_Updated' => Auth::user()->id,
-            ]
-        );
-        exit;
-
         try {
+            $no_transaksi = 0;
 
-
-            DB::transaction(function () use ($request) {
-                $insert_detail = [];
-                $sum_total = 0;
-
-                Penjualan::create(
+            DB::transaction(function () use ($request, &$no_transaksi) {
+                $penjualan = Penjualan::create(
                     [
-                        'Tgl_Transaksi' => ($request->tgl_transaksi == "" || is_null($request->tgl_transaksi)) ? '' : Carbon::createFromFormat('d-m-Y', $request->tgl_transaksi)->format('Y-m-d'),
+                        'Tgl_Transaksi' => ($request->tgl_transaksi == "" || is_null($request->tgl_transaksi)) ? '' : Carbon::createFromFormat('d-m-Y', $request->tgl_transaksi)->format('Y-m-d H:i:s'),
                         'Nama_Konsumen' => $request->nm_konsumen,
                         'Total_Transaksi' => 0,
                         'Username_Created' => Auth::user()->id,
@@ -62,39 +50,41 @@ class PenjualanController extends Controller
                     ]
                 );
 
-                // foreach ($request->data_barang as $row) {
-                //     $total = $row->volume1 *  $row->harga_satuan;
-                //     $sum_total += $total;
+                $no_transaksi = $penjualan->No_Transaksi;
 
-                //     $insert_detail[] = array(
-                //         'kd_skpd' => $request->kd_skpd,
-                //         'kd_barang' => $row->kd_barang,
-                //         'uraian_barang' => $row->uraian_barang,
-                //         'spesifikasi' => $row->spesifikasi,
-                //         'keterangan' => $row->keterangan,
-                //         'keperluan' => $row->keperluan,
-                //         'volume1_adm' => floatval($row->volume1_adm),
-                //         'volume1_saldo' => floatval($row->volume1_saldo),
-                //         'satuan1_adm' => $row->satuan1_adm,
-                //         'harga_adm' => floatval($row->harga_adm),
-                //         'total_adm' => floatval($total_adm),
-                //     );
-                // }
-                // foreach (array_chunk($insert_detail, 20) as $chunk) {
-                //     TrdNpb::insert($chunk);
-                // }
+                $insert_detail = [];
+                $sum_total = 0;
+
+                $request->data_barang = json_decode($request->data_barang);
+
+                foreach ($request->data_barang as $row) {
+                    $total = $row->Jumlah *  $row->Harga_Satuan;
+                    $sum_total += $total;
+
+                    $insert_detail[] = array(
+                        'No_Transaksi' => $no_transaksi,
+                        'Kode_Barang' => $row->Kode_Barang,
+                        'Jumlah' => floatval($row->Jumlah),
+                        'Harga_Satuan' => floatval($row->Harga_Satuan),
+                        'Harga_Total' => floatval($total),
+                    );
+                }
+                foreach (array_chunk($insert_detail, 20) as $chunk) {
+                    DetailPenjualan::insert($chunk);
+                }
+
+
+                Penjualan::where('No_Transaksi', $no_transaksi)->update(['Total_Transaksi' => $sum_total]);
             });
 
-            if (!$result["success"]) return response()->json($result, 400);
-
             session()->flash('success', true);
-            session()->flash('message', $result["message"]);
-            session()->keep(['status', 'message']);
-            return response()->json($result, 200);
+            session()->flash('message', "Transaksi Berhasil Disimpan dengan No " . $no_transaksi);
+            session()->keep(['success', 'message']);
+
+            return response()->json(array("success" => true, "message" => "Transaksi Berhasil Disimpan dengan No " . $no_transaksi), 200);
         } catch (\Throwable $th) {
             Log::error($th);
-            Debugbar::error($th);
-            return response()->json("Server Persediaan Error", 500);
+            return response()->json("Server Error", 500);
         }
     }
 
@@ -127,7 +117,16 @@ class PenjualanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            DB::transaction(function () use ($id) {
+                Penjualan::where("No_Transaksi", Crypt::decryptString($id))->delete();
+                DetailPenjualan::where("No_Transaksi", Crypt::decryptString($id))->delete();
+            });
+
+            return response()->json(array("success" => true, "message" => "Data Berhasil Dihapus"), 200);
+        } catch (\Throwable $th) {
+            return response()->json(array("message" => "Server Error !!!"), 500);
+        }
     }
 
     public function getPenjualan(Request $request)
